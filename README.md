@@ -1,5 +1,11 @@
 # AsyncProblemsL10n
 
+- try open site with url http://ferratum-co-nz.local:4200
+- then try open any path with speciffied language (for example /sk or /sk/test)
+
+-------------------------------------------------------------------------------------------
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
 ## Development server
