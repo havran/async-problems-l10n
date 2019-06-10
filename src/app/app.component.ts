@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'async-problems-l10n';
+export class AppComponent implements OnInit {
+
+  @Language() lang: string;
+
+  ngOnInit(): void {}
+
 }
