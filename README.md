@@ -1,5 +1,8 @@
 # AsyncProblemsL10n
 
+(YARN is used as package manager)
+
+- run app by `yarn start`
 - try open site with url http://ferratum-co-nz.local:4200
 - then try open any path with speciffied language (for example /sk or /sk/test)
 
