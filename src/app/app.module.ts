@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, Inject, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, defaultLangFunction } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WINDOW_PROVIDER } from './module/core/service/window/window.provider';
 import { CONFIG_SERVICE, ConfigService, configServiceFactory } from './config/config.service';
@@ -10,8 +12,15 @@ import { APP_CONFIG } from './config/app.config.token';
 import { configFactory } from './config/app.config.factory';
 import { SITE_SERVICE } from './module/core/service/site/site-service.token';
 import { SiteService } from './module/core/service/site/site-service';
-import { TranslationModule, LocaleSeoModule } from 'angular-l10n';
-import { initLocalization, l10nConfig, LocalizationConfig } from './l10n/l10n-config';
+import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings } from 'localize-router';
+import { LocalizeRouterLoaderService } from './module/core/service/translation/localize-router-loader.service';
+import { Location } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { ContentModule } from './module/content/content.module';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/locales/locale-', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -19,10 +28,15 @@ import { initLocalization, l10nConfig, LocalizationConfig } from './l10n/l10n-co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    TranslationModule.forRoot(l10nConfig),
-    LocaleSeoModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    AppRoutingModule,
   ],
   providers: [
     WINDOW_PROVIDER,
@@ -42,13 +56,6 @@ import { initLocalization, l10nConfig, LocalizationConfig } from './l10n/l10n-co
       multi: true,
     },
     { provide: SITE_SERVICE, useClass: SiteService },
-    LocalizationConfig,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initLocalization,
-      deps: [LocalizationConfig],
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent]
 })
