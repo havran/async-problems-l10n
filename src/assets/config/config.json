@@ -4,7 +4,8 @@
       "hostname": [
         "ferratum-co-nz.local"
       ],
-      "siteId": "ferratum.co.nz"
+      "siteId": "ferratum.co.nz",
+      "locales": ["en", "sv", "sk"]
     }
   ]
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-content-view-model',
@@ -12,15 +11,10 @@ export class ContentViewModelComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.route.data
-      .pipe(
-        tap((data: Data) => {
-          this.content = 'Any content';
-        }),
-      )
-      .subscribe();
+    this.content = this.route.snapshot.data.content;
   }
 }
